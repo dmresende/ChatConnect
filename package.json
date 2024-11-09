@@ -1,0 +1,20 @@
+{
+  "name": "ixcpreparation",
+  "version": "1.0.0",
+  "description": "Apenas preparação para iniciar uma nova jornada em um novo lugar.",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmresende/ixcPreparation.git"
+  },
+  "author": "Douglas Resende",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmresende/ixcPreparation/issues"
+  },
+  "homepage": "https://github.com/dmresende/ixcPreparation#readme"
+}
