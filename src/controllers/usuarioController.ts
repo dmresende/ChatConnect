@@ -1,35 +1,39 @@
 import { Request, Response } from "express";
-import User, { IUser } from "../models/User.js";
+import User, { IUser } from "../models/User";
 interface CustomRequest extends Request {
   user?: IUser;
 }
 
-const getUsuarioID = async (req: CustomRequest, res: Response) => {
-  try {
-    if (req.user) {
-      const user = await User.findById(req.user._id);
+class UserController {
+  async getUsuarioID(req: CustomRequest, res: Response): Promise<void> {
+    try {
+      if (req.user) {
+        const user = await User.findById(req.user._id);
 
-      if (!user) {
-        res.status(404).json({ error: "Usuário não encontrado" });
+        if (!user) {
+          res.status(404).json({ error: "Usuário não encontrado" });
+        }
+        res.json(user);
+      } else {
+        res.status(401).json({ error: "Usuário não autenticadoo" });
       }
-      res.json(user);
-    } else {
-      res.status(401).json({ error: "Usuário não autenticadoo" });
+    } catch (error) {
+      res.status(500).json({ error: "Erro ao buscar usuário" });
     }
-  } catch (error) {
-    res.status(500).json({ error: "Erro ao buscar usuário" });
   }
-};
 
-const getUsuarios = async (req: Request, res: Response) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    console.log("❌ Erro ao buscar usuário", error);
-    res.status(500).json({ error: "Erro ao buscar usuário" });
+  async getUsuarios(req: CustomRequest, res: Response): Promise<void> {
+    try {
+      console.log("Entrou");
+      const users = await User.find();
+      console.log("🚀  users", users);
+      res.json(users);
+    } catch (error) {
+      console.log("❌ Erro ao buscar usuário", error);
+      res.status(500).json({ error: "Erro ao buscar usuário" });
+    }
   }
-};
+}
 
 // const postUsuario = (req: Request, res: Response) => {
 //   const { name, email } = req.body;
@@ -50,10 +54,4 @@ const getUsuarios = async (req: Request, res: Response) => {
 //   res.json({ message: `Usuário ${id} deletado com sucesso` });
 // };
 
-export const usuarioController = {
-  getUsuarioID,
-  getUsuarios,
-  // postUsuario,
-  // putUsuario,
-  // deleteUsuario,
-};
+export default new UserController();
