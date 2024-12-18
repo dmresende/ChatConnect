@@ -4,23 +4,7 @@
 
 - **9-10 nov (qui-sex):** Node.js e Express
    - **Exercício:** Crie um servidor simples com Express que responda com "Hello World" em uma rota inicial.
-   - **Exercício:** Adicione rotas para listar,{
-  "compilerOptions": {
-    "target": "ES2020",                       // Define o alvo da compilação JavaScript
-    "module": "CommonJS",                    // Usa o sistema de módulos CommonJS (padrão do Node.js)
-    "rootDir": "src",                        // Define o diretório raiz dos arquivos TypeScript
-    "outDir": "dist",                        // Define o diretório de saída para os arquivos JavaScript compilados
-    "strict": true,                            // Habilita todas as verificações de tipo estritas
-    "esModuleInterop": true,                  // Habilita a interoperabilidade com módulos ES
-    "forceConsistentCasingInFileNames": true, // Garante que o case dos nomes dos arquivos seja consistente
-    "skipLibCheck": true,                     // Ignora a verificação de tipos em arquivos de declaração de terceiros
-    "resolveJsonModule": true,                // Permite a importação de arquivos JSON
-    "moduleResolution": "node",             // Resolve módulos de forma compatível com o Node.js
-    "allowSyntheticDefaultImports": true      // Permite importações padrão sintéticas
-  },
-  "include": ["src/**/*"],                   // Inclui todos os arquivos TypeScript dentro do diretório "src"
-  "exclude": ["node_modules", "dist"]       // Exclui os diretórios "node_modules" e "dist" da compilação
-}
+   - **Exercício:** Adicione rotas para listar,
  adicionar, atualizar e excluir usuários. Cada usuário deve ter nome e email.
 
 - **13-14 nov (seg-ter):** MongoDB

@@ -7,8 +7,8 @@ interface CustomRequest extends Request {
 class UserController {
   async getUsuarioID(req: CustomRequest, res: Response): Promise<void> {
     try {
-      if (req.user) {
-        const user = await User.findById(req.user._id);
+      if (req.params.id) {
+        const user = await User.findById(req.params.id);
 
         if (!user) {
           res.status(404).json({ error: "Usuário não encontrado" });
@@ -24,34 +24,68 @@ class UserController {
 
   async getUsuarios(req: CustomRequest, res: Response): Promise<void> {
     try {
-      console.log("Entrou");
       const users = await User.find();
-      console.log("🚀  users", users);
       res.json(users);
     } catch (error) {
       console.log("❌ Erro ao buscar usuário", error);
       res.status(500).json({ error: "Erro ao buscar usuário" });
     }
   }
+  
+  async postUsuario (req: CustomRequest, res: Response): Promise<void> {
+    try{
+      const {nome, usuario, senha} = req.body;
+      const usuarioExistente = await User.findOne({usuario});
+
+      if(usuarioExistente){
+        res.status(400).json({error: "Este email já está cadastrado"});
+        return;
+      }
+      const novoUsuario = await User.create({nome, usuario, senha});
+      res.status(201).json({message: "Usuário cadastrado com sucesso", usuario: novoUsuario});
+
+    }catch(error){
+      console.log("❌ Erro ao cadastrar usuário", error);
+      res.status(500).json({ error: "Erro ao cadastrar usuário" });
+    }
+  }
+
+  async putUsuario (req: CustomRequest, res: Response): Promise<void> {
+    try{
+      const {id} = req.params;
+      const {nome, usuario, senha} = req.body;
+
+      const usuarioAtualizado = await User.findByIdAndUpdate(
+        id, 
+        {nome, usuario, senha},
+        {new: true} 
+      );
+
+      if(!usuarioAtualizado) {
+        res.status(404).json({error: "Usuário não encontrado"});
+        return;
+      }
+
+      res.json({message: "Usuário atualizado com sucesso", usuario: usuarioAtualizado});
+
+    }catch(error){
+      console.log("❌ Erro ao atualizar usuário", error);
+      res.status(500).json({error: "Erro ao atualizar usuário"});
+    }
+  }
+
+  async deleteUsuario (req: CustomRequest, res: Response): Promise<void> {
+    try{
+      const {id} = req.params;
+      await User.findByIdAndDelete(id);
+      res.json({message: `Usuário ${id} deletado com sucesso`});
+
+    }catch(error){
+      console.log("❌ Erro ao deletar usuário", error);
+      res.status(500).json({error: "Erro ao deletar usuário"});
+    }
+  }
 }
 
-// const postUsuario = (req: Request, res: Response) => {
-//   const { name, email } = req.body;
-//   res.json({ mesage: `Formulário enviado por ${name} com o email ${email}` });
-// };
-
-// const putUsuario = (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   const { name, email } = req.body;
-//   res.json({
-//     message: `Usuário ${id} atualizado para ${name} com o email ${email}`,
-//   });
-// };
-
-// const deleteUsuario = (req: Request, res: Response) => {
-//   const { id } = req.params;
-
-//   res.json({ message: `Usuário ${id} deletado com sucesso` });
-// };
 
 export default new UserController();

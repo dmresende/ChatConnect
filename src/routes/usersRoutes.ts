@@ -3,11 +3,11 @@ import userController from "../controllers/usuarioController";
 
 const router = express.Router();
 
-router.get("/", userController.getUsuarioID);
+router.get("/usuarios/:id", userController.getUsuarioID);
 router.get("/usuarios", userController.getUsuarios);
+router.post("/usuario", userController.postUsuario);
+router.put("/usuario/:id", userController.putUsuario);
+router.delete("/usuario/:id", userController.deleteUsuario);
 
-// router.post("/usuario", usuarioController.postUsuario);
-// router.put("/usuario/:id", usuarioController.putUsuario);
-// router.delete("/usuario/:id", usuarioController.deleteUsuario);
 
 export default router;
