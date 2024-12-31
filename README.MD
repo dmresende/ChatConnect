@@ -38,6 +38,7 @@ Após a implementação das funcionalidades principais, algumas melhorias e nova
 - **Melhorias no Desempenho** do chat, como filas de mensagens e otimizações no banco de dados.
 
 ## Estrutura de pastas propostas
+```
 src/
 ├── config/              # General configurations
 │   ├── database.js      # MongoDB configuration and connection
@@ -65,6 +66,7 @@ src/
 │   └── gateways/        # External communication adapters
 │       └── AuthService.js # Example of external authentication service
 └── app.js               # Main server file
+```
 
 Implementar  Clean Architecture
 
