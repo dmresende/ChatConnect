@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import User, { IUser } from "../models/User";
+import {User}  from "../../infrastructure/database/User";
+
 interface CustomRequest extends Request {
-  user?: IUser;
+  user?: typeof User;
 }
 
 class UserController {
-  async getUsuarioID(req: CustomRequest, res: Response): Promise<void> {
+  async getUsuarioID(req: Request, res: Response): Promise<void> {
     try {
       if (req.params.id) {
         const user = await User.findById(req.params.id);
@@ -31,8 +32,8 @@ class UserController {
       res.status(500).json({ error: "Erro ao buscar usuário" });
     }
   }
-  
-  async postUsuario (req: CustomRequest, res: Response): Promise<void> {
+
+  async postUsuario (req: Request, res: Response): Promise<void> {
     try{
       const {nome, usuario, senha} = req.body;
       const usuarioExistente = await User.findOne({usuario});
@@ -50,15 +51,15 @@ class UserController {
     }
   }
 
-  async putUsuario (req: CustomRequest, res: Response): Promise<void> {
+  async putUsuario (req: Request, res: Response): Promise<void> {
     try{
       const {id} = req.params;
       const {nome, usuario, senha} = req.body;
 
       const usuarioAtualizado = await User.findByIdAndUpdate(
-        id, 
+        id,
         {nome, usuario, senha},
-        {new: true} 
+        {new: true}
       );
 
       if(!usuarioAtualizado) {
@@ -74,7 +75,7 @@ class UserController {
     }
   }
 
-  async deleteUsuario (req: CustomRequest, res: Response): Promise<void> {
+  async deleteUsuario (req: Request, res: Response): Promise<void> {
     try{
       const {id} = req.params;
       await User.findByIdAndDelete(id);

@@ -37,4 +37,35 @@ Após a implementação das funcionalidades principais, algumas melhorias e nova
 - Expansão da autenticação com **OAuth** para login com Google, Facebook, etc.
 - **Melhorias no Desempenho** do chat, como filas de mensagens e otimizações no banco de dados.
 
+## Estrutura de pastas propostas
+src/
+├── config/              # General configurations
+│   ├── database.js      # MongoDB configuration and connection
+│   ├── passport.js      # Passport.js configuration (optional)
+│   └── ...              # Other configurations (env, cluster, etc.)
+├── domain/              # Business logic layer
+│   ├── entities/        # Entity definitions
+│   │   └── User.js      # Class or interface representing a User
+│   ├── usecases/        # Use cases (application logic)
+│   │   └── RegisterUser.js
+│   │   └── LoginUser.js
+│   └── interfaces/      # Interfaces (e.g., repositories, gateways)
+│       └── UserRepository.js
+├── infrastructure/      # Infrastructure implementations
+│   ├── database/        # Database-specific implementations
+│   │   └── MongoUserRepository.js
+│   ├── webserver/       # Web server configuration
+│   │   └── routes/      # Application routes
+│   │       └── UserRoutes.js
+│   └── socket/          # Socket.io configuration
+│       └── chatSocket.js
+├── adapters/            # Adapters (controllers and gateways)
+│   ├── controllers/     # API controllers
+│   │   └── UserController.js
+│   └── gateways/        # External communication adapters
+│       └── AuthService.js # Example of external authentication service
+└── app.js               # Main server file
+
+Implementar  Clean Architecture
+
 ---
