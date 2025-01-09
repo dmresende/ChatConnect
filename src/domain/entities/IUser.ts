@@ -1,10 +1,9 @@
 import { Document } from "mongoose";
 
+//INF:  interface específica para o Mongoose, usada para tipar os documentos do banco de dados
 export interface IUser extends Document {
-  nome: string;
-  usuario: string;
-  senha: string;
-  dataCriacao: Date;
-  dataAtualizacao: Date;
-  foto?: string;
+  name: string;
+  email: string;
+  password: string;
+  photo?: string;
 }
