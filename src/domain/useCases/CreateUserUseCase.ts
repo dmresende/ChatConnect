@@ -2,6 +2,13 @@ import { IUserRepository } from "../interfaces/IUserRepository";
 import { IUser } from "../entities/IUser";
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 
+class UserAlreadyExistsError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UserAlreadyExistsError";
+  }
+}
+
 class CreateUserUseCase {
   private iuserRepository: IUserRepository;
 
@@ -14,11 +21,12 @@ class CreateUserUseCase {
     email,
     password,
     photo,
-  }: ICreateUserDTO): Promise<IUser | null> {
+  }: ICreateUserDTO): Promise<IUser> {
     try {
       const existingUser = await this.iuserRepository.findByEmail(email);
+
       if (existingUser) {
-        throw new Error("Usuário com este email já existe");
+        throw new UserAlreadyExistsError("Usuário com este email já existe");
       }
 
       const newUser: IUser = await this.iuserRepository.create({
@@ -30,6 +38,8 @@ class CreateUserUseCase {
 
       return newUser;
     } catch (error) {
+      ("");
+      console.log("🚀  error", error);
       throw error;
     }
   }
