@@ -4,7 +4,7 @@ import { UserRepository } from "../infrastructure/repositories/UserRepository";
 import GetUserByIdUseCase from "../domain/useCases/GetUserByIdUseCase";
 import GetAllUsersUseCase from "../domain/useCases/GetAllUsersUseCase";
 import UpdateUserUseCase from "../domain/useCases/UpdateUserUseCase";
-import CreateUserUseCase from "../domain/useCases/CreateUserUseCase.ts";
+import CreateUserUseCase from "../domain/useCases/CreateUserUseCase";
 import DeleteUserByEmailUseCase from "../domain/useCases/DeleteUserByEmailUseCase";
 
 const userRepository = new UserRepository();
@@ -79,8 +79,6 @@ class UserController {
         password,
         photo,
       });
-
-      console.log("🚀  updatedUser", updatedUser);
 
       if (updatedUser) {
         res.status(200).json(updatedUser);
