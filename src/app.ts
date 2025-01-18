@@ -4,11 +4,11 @@ import usersRoutes from "./infrastructure/routes/UsersRoutes";
 import connectDB from "./infrastructure/config/ConnectionDB";
 
 dotenv.config();
+connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 1111;
 
-connectDB();
 app.use(express.json());
 
 app.use(usersRoutes);

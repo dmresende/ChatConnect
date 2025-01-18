@@ -39,7 +39,6 @@ class CreateUserUseCase {
       return newUser;
     } catch (error) {
       ("");
-      console.log("🚀  error", error);
       throw error;
     }
   }
